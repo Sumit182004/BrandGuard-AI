@@ -2,7 +2,11 @@
 
 **AI-Powered Brand Compliance and Content Governance Platform**
 
-BrandGuard AI is an AI-powered platform designed to help organizations review marketing content against brand guidelines, approved claims, terminology, and compliance requirements. It combines deterministic rule-based checks with large language model analysis to identify potential issues, explain findings, suggest improvements, and support human approval workflows.
+BrandGuard AI helps organizations review marketing content against brand guidelines, approved claims, terminology, and compliance requirements. It combines deterministic rule-based checks with Large Language Model (LLM) analysis to identify potential issues, explain findings, suggest improvements, and support human approval workflows.
+
+## Hackathon Project
+
+BrandGuard AI was developed as part of a hackathon to address the challenge of brand compliance and content governance. The project demonstrates how AI-powered analysis and deterministic rule-based checks can help organizations identify potential content violations, maintain consistent brand messaging, and streamline human review and approval workflows.
 
 ## Table of Contents
 
@@ -20,14 +24,15 @@ BrandGuard AI is an AI-powered platform designed to help organizations review ma
 - [Testing](#testing)
 - [Security Considerations](#security-considerations)
 - [Future Improvements](#future-improvements)
+- [License](#license)
 
 ## Overview
 
-Organizations need to ensure that marketing content follows their brand identity, messaging guidelines, and compliance requirements. Manual content review can be time-consuming and may lead to inconsistent decisions.
+Organizations need to ensure that their marketing content follows brand identity, messaging guidelines, and compliance requirements. Manual content review can be time-consuming and may lead to inconsistent decisions.
 
 BrandGuard AI provides a centralized workflow to configure brand guidelines, submit content, identify potential violations, review AI-generated findings, revise content, and record approval decisions.
 
-The platform combines AI-powered analysis with deterministic checks so that potential violations can be identified through explicit rules as well as contextual language analysis. Final approval remains under human control.
+The platform combines AI-powered analysis with deterministic checks to identify potential violations through explicit rules and contextual language analysis. Final approval remains under human control.
 
 ## Key Features
 
@@ -54,10 +59,10 @@ The platform combines AI-powered analysis with deterministic checks so that pote
 - Identify potential brand guideline violations.
 - Display finding descriptions and severity levels.
 - Highlight prohibited terminology and potentially unsupported claims.
-- Help reviewers distinguish unsupported claims from claims that directly contradict approved brand information, where the available evidence supports that distinction.
+- Help reviewers distinguish missing evidence from a claim that contradicts approved brand information when the available evidence supports that distinction.
 
 ### 5. Human Approval Workflow
-- Submit content for review.
+- Review submitted content.
 - Approve content or request changes.
 - Record reviewer comments.
 - Re-review revised content before approval.
@@ -80,7 +85,7 @@ The platform combines AI-powered analysis with deterministic checks so that pote
 | Frontend | React, TypeScript, Vite, CSS |
 | Backend | Python, FastAPI |
 | Database ORM | SQLAlchemy |
-| Database | PostgreSQL with Supabase |
+| Production Database | PostgreSQL with Supabase |
 | Local Development Database | SQLite, when configured |
 | AI Integration | Groq API and large language models |
 | Document Processing | Python document extraction libraries |
@@ -89,7 +94,7 @@ The platform combines AI-powered analysis with deterministic checks so that pote
 
 ## System Architecture
 
-The application follows a frontend-backend architecture. The frontend communicates with REST API endpoints exposed by FastAPI. The backend coordinates brand management, guideline management, document extraction, content review, and approval operations.
+BrandGuard AI follows a frontend-backend architecture. The frontend communicates with REST API endpoints exposed by FastAPI. The backend coordinates brand management, guideline management, document extraction, content review, and approval operations.
 
 The review engine combines deterministic rule checks with AI-generated analysis. Application data is persisted in the configured database.
 
@@ -97,17 +102,17 @@ The review engine combines deterministic rule checks with AI-generated analysis.
 flowchart TB
     USER["User / Reviewer"]
 
-    subgraph FRONTEND["Frontend — React + TypeScript"]
+    subgraph FRONTEND["Frontend - React + TypeScript"]
         UI["BrandGuard AI Web Interface"]
-        BRAND_UI["Dashboard and Brand Setup"]
-        GUIDE_UI["Guideline Management"]
-        REVIEW_UI["New Review and Review Report"]
-        APPROVAL_UI["Approval Queue and Review History"]
+        DASH["Dashboard and Brand Setup"]
+        GUIDES["Guideline Management"]
+        REVIEW["New Review and Review Report"]
+        APPROVAL["Approval Queue and Review History"]
     end
 
-    subgraph BACKEND["Backend — FastAPI"]
+    subgraph BACKEND["Backend - FastAPI"]
         API["REST API Endpoints"]
-        BRAND_SERVICE["Brand and Guideline Services"]
+        BRAND_SERVICE["Brand and Guideline Operations"]
         DOC_SERVICE["Document Extraction Service"]
         REVIEW_ENGINE["Review Engine"]
         RULE_ENGINE["Deterministic Rule Engine"]
@@ -116,18 +121,18 @@ flowchart TB
     end
 
     DB[("Supabase PostgreSQL")]
-    GROQ["Groq API — Language Model"]
+    GROQ["Groq API - Language Model"]
 
     USER --> UI
-    UI --> BRAND_UI
-    UI --> GUIDE_UI
-    UI --> REVIEW_UI
-    UI --> APPROVAL_UI
+    UI --> DASH
+    UI --> GUIDES
+    UI --> REVIEW
+    UI --> APPROVAL
 
-    BRAND_UI --> API
-    GUIDE_UI --> API
-    REVIEW_UI --> API
-    APPROVAL_UI --> API
+    DASH --> API
+    GUIDES --> API
+    REVIEW --> API
+    APPROVAL --> API
 
     API --> BRAND_SERVICE
     API --> DOC_SERVICE
@@ -136,7 +141,6 @@ flowchart TB
 
     BRAND_SERVICE <--> DB
     DOC_SERVICE --> REVIEW_ENGINE
-
     REVIEW_ENGINE --> RULE_ENGINE
     REVIEW_ENGINE --> AI_SERVICE
     AI_SERVICE <--> GROQ
@@ -149,9 +153,9 @@ flowchart TB
 
 ### Architecture Components
 
-- **Frontend:** Provides the user interface for brand configuration, guidelines, content submission, reports, approvals, and revision history.
+- **Frontend:** Provides the interface for brand configuration, guidelines, content submission, reports, approvals, and revision history.
 - **FastAPI Backend:** Exposes REST endpoints and coordinates application operations.
-- **Brand and Guideline Services:** Manage brand details, terminology, approved claims, prohibited terms, and guidelines.
+- **Brand and Guideline Operations:** Manage brand details, terminology, approved claims, prohibited terms, and guidelines.
 - **Document Extraction Service:** Extracts text from supported uploaded documents.
 - **Deterministic Rule Engine:** Checks configured terminology, prohibited terms, and applicable guideline rules.
 - **AI Analysis Service:** Uses the configured Groq language model to analyze content and generate findings and suggestions.
@@ -194,14 +198,14 @@ flowchart TD
 2. The user submits text or uploads a supported document.
 3. The backend extracts document text when necessary.
 4. The review engine executes deterministic checks and AI analysis.
-5. The findings are combined into a review report containing a score, explanations, severity, and suggested content where available.
+5. The findings are combined into a report containing a score, explanations, severity, and suggested content where available.
 6. A human reviewer examines the results and either requests changes or approves the content.
 7. Revised content is reviewed again before approval.
 8. Review and revision records are retained for subsequent reference.
 
 ## Deployment Architecture
 
-The deployed application uses Vercel for the frontend, Render for the backend, and Supabase for PostgreSQL storage.
+The deployed application uses Vercel for the frontend, Render for the backend, and Supabase for PostgreSQL storage. The backend also communicates with the Groq API for AI-powered analysis.
 
 ```mermaid
 flowchart LR
@@ -213,19 +217,20 @@ flowchart LR
 
     subgraph RENDER["Render"]
         BACKEND["FastAPI Backend"]
-        ENGINE["Review and Rule Engines"]
+        ENGINE["Review Engine and Rule Checks"]
     end
 
-    subgraph SERVICES["External Services"]
-        SUPABASE[("Supabase PostgreSQL")]
+    subgraph EXTERNAL["External Services"]
+        DB[("Supabase PostgreSQL")]
         GROQ["Groq API"]
     end
 
     USER --> FRONTEND
     FRONTEND -->|"HTTPS REST Requests"| BACKEND
     BACKEND --> ENGINE
-    ENGINE <--> SUPABASE
+    ENGINE <--> DB
     ENGINE -->|"AI Analysis Requests"| GROQ
+    GROQ -->|"Analysis Response"| ENGINE
 ```
 
 ### Deployed Application
@@ -235,7 +240,7 @@ flowchart LR
 - **Interactive API Documentation:** https://brandguard-ai-mnal.onrender.com/docs
 - **Health Endpoint:** https://brandguard-ai-mnal.onrender.com/health
 
-The health endpoint can be used to check whether the backend responds. A successful health response does not by itself verify database connectivity or AI functionality.
+The health endpoint checks backend responsiveness. A successful health response does not, by itself, verify database connectivity or AI functionality.
 
 ## Database Design
 
@@ -298,20 +303,20 @@ erDiagram
     }
 ```
 
-**Relationship summary:**
+### Relationship Summary
 
 - A brand can have multiple guidelines.
 - A brand can have multiple reviews.
 - A review can have multiple revision records.
-- Each review is associated with a brand.
-- Each guideline is associated with a brand.
+- Each review belongs to a brand.
+- Each guideline belongs to a brand.
 
-The diagram represents the logical relationships. The actual schema is defined by the SQLAlchemy models in the repository.
+The diagram illustrates the logical data model. The actual database schema is defined by the SQLAlchemy models in the repository.
 
 ## Project Structure
 
 ```text
-BrandGuardAI/
+BrandGuard-AI/
 ├── backend/
 │   ├── app/
 │   │   ├── api/
@@ -352,9 +357,7 @@ BrandGuardAI/
 
 ### Prerequisites
 
-Install the following:
-
-- Python 3.11 or another version compatible with the project's dependencies
+- Python 3.11 or another version compatible with the project dependencies
 - Node.js and npm
 - Git
 - A Groq API key for AI-powered reviews
@@ -362,22 +365,20 @@ Install the following:
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/Sumit182004/BrandGuard-AI
-cd BrandGuardAI
+git clone https://github.com/Sumit182004/BrandGuard-AI.git
+cd BrandGuard-AI
 ```
-
-Replace the placeholder with the URL of your GitHub repository.
 
 ### 2. Set Up the Backend
 
-Open a terminal in the project root.
+From the project root, create a virtual environment:
 
 ```bash
 cd backend
 python -m venv .venv
 ```
 
-Activate the virtual environment.
+Activate the environment.
 
 **Windows:**
 
@@ -385,13 +386,13 @@ Activate the virtual environment.
 .venv\Scripts\activate
 ```
 
-Install dependencies:
+Install the dependencies:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-Create a `.env` file in the `backend` directory using `.env.example` as a reference.
+Create a `.env` file inside the `backend` directory using `.env.example` as a reference.
 
 Example local development configuration:
 
@@ -404,7 +405,7 @@ GROQ_API_KEY=your_groq_api_key
 GROQ_MODEL=openai/gpt-oss-20b
 ```
 
-Replace `your_groq_api_key` with your own API key. Never commit the real key to GitHub.
+Replace `your_groq_api_key` with your own API key. Never commit real credentials to GitHub.
 
 Start the backend:
 
@@ -418,7 +419,7 @@ The backend should be available at:
 
 ### 3. Set Up the Frontend
 
-Open a second terminal in the project root.
+Open a second terminal from the project root:
 
 ```bash
 cd frontend
@@ -431,7 +432,7 @@ Create a `.env` file inside `frontend`:
 VITE_API_URL=http://localhost:8000
 ```
 
-Start the frontend development server:
+Start the frontend:
 
 ```bash
 npm run dev
@@ -444,8 +445,8 @@ Open the local URL printed by Vite, typically:
 ### 4. Verify the Application
 
 - Open the frontend in your browser.
-- Open `http://localhost:8000/health` to check backend responsiveness.
-- Open `http://localhost:8000/docs` to inspect the available API endpoints.
+- Visit `http://localhost:8000/health` to check backend responsiveness.
+- Visit `http://localhost:8000/docs` to inspect available API endpoints.
 - Create a brand and add guidelines.
 - Submit content for review.
 - Verify the report, approval workflow, and revision history.
@@ -462,9 +463,9 @@ Open the local URL printed by Vite, typically:
 | `GROQ_MODEL` | Configured language model identifier |
 | `VITE_API_URL` | Backend API base URL used by the frontend |
 
-For production, configure environment variables in the deployment platforms instead of committing credentials to the repository.
+For production, configure environment variables through the deployment platforms rather than committing credentials to the repository.
 
-Use the appropriate Supabase PostgreSQL connection string for the deployed backend. Set `CORS_ORIGINS` to the deployed frontend origin and set `VITE_API_URL` to the deployed backend URL.
+Use the appropriate Supabase PostgreSQL connection string for the deployed backend. Set `CORS_ORIGINS` to the deployed frontend origin and `VITE_API_URL` to the deployed backend URL.
 
 ## API Documentation
 
@@ -503,7 +504,7 @@ Use the following scenarios to test the application.
 - Submit content containing prohibited terms and unsupported claims.
 - Verify that the report includes findings and a score.
 - Submit compliant content and compare the results.
-- Confirm the AI does not automatically treat missing evidence as proof that a claim is false.
+- Confirm that missing evidence is not automatically treated as proof that a claim is false.
 
 ### 4. Approval Workflow
 - Request changes to a review.
@@ -515,12 +516,12 @@ Use the following scenarios to test the application.
 ### 5. Revision History
 - Verify that the original and revised content are stored as separate versions.
 - Confirm the latest revision contains the updated review results.
-- Refresh the page and check that the revision history remains available.
+- Refresh the page and check that revision history remains available.
 
 ### 6. Dashboard
 - Verify the brand and review counts.
 - Check pending and approved review statistics.
-- Confirm findings and score summaries reflect the stored review data.
+- Confirm findings and score summaries reflect stored review data.
 
 ### 7. Error Handling
 - Submit empty content.
