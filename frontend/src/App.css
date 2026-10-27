@@ -1,0 +1,576 @@
+
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap");
+
+/* ========================================
+   1. DESIGN TOKENS
+======================================== */
+
+:root {
+  font-family: "DM Sans", sans-serif;
+  color: #29264b;
+  background: #f5f3ff;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+
+  --purple: #7657e8;
+  --purple-dark: #5b43ca;
+  --blue: #3488ed;
+  --teal: #13a889;
+  --orange: #ed9447;
+  --pink: #e85b9b;
+  --text: #29264b;
+  --muted: #817d9b;
+  --border: #e8e3f6;
+  --surface: #ffffff;
+  --page: #f5f3ff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  min-height: 100%;
+  margin: 0;
+}
+
+body {
+  min-width: 320px;
+  background: var(--page);
+  font-size: 14px;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button {
+  padding: 11px 18px;
+  border: none;
+  border-radius: 9px;
+  background: linear-gradient(120deg, #8062ee, #5c67df);
+  color: #ffffff;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 5px 12px rgb(108 83 218 / 20%);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 7px 16px rgb(108 83 218 / 28%);
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ========================================
+   2. FORM CONTROLS
+======================================== */
+
+input,
+textarea,
+select {
+  display: block;
+  width: 100%;
+  margin-top: 7px;
+  padding: 12px 13px;
+  border: 1px solid #e1dcf0;
+  border-radius: 9px;
+  outline: none;
+  background: #ffffff;
+  color: var(--text);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: var(--purple);
+  box-shadow: 0 0 0 3px rgb(118 87 232 / 12%);
+}
+
+textarea {
+  min-height: 100px;
+  resize: vertical;
+  line-height: 1.6;
+}
+
+label {
+  display: block;
+  margin-bottom: 17px;
+  color: #514a75;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+a {
+  color: var(--purple-dark);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* ========================================
+   3. APPLICATION LAYOUT
+======================================== */
+
+.app-layout {
+  width: 100%;
+  min-height: 100vh;
+  background:
+    radial-gradient(
+      ellipse at 0% 0%,
+      rgb(222 213 255 / 42%),
+      transparent 35%
+    ),
+    linear-gradient(135deg, #f7f5ff, #f0f7ff 55%, #fff4f8);
+}
+
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+  width: 100%;
+  min-height: 82px;
+  padding: 17px 4%;
+  background: linear-gradient(
+    110deg,
+    #6844d4 0%,
+    #8058e9 48%,
+    #4d79e9 100%
+  );
+  border: none;
+  box-shadow: 0 6px 22px rgb(91 67 194 / 20%);
+}
+
+.app-header h2 {
+  margin: 0;
+  color: #ffffff;
+  font-family: "Manrope", sans-serif;
+  font-size: 23px;
+  font-weight: 800;
+  letter-spacing: -0.8px;
+  white-space: nowrap;
+}
+
+.app-nav {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.app-nav a {
+  padding: 10px 12px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  color: #f4f0ff;
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.app-nav a:hover {
+  background: rgb(255 255 255 / 17%);
+  border-color: rgb(255 255 255 / 18%);
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.app-content {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 38px 4% 60px;
+}
+
+/* ========================================
+   4. PAGE HEADINGS
+======================================== */
+
+.page {
+  width: 100%;
+  margin: 0;
+}
+
+.page > h1,
+.app-content > main > h1 {
+  margin: 0 0 9px;
+  color: #30245f;
+  font-family: "Manrope", sans-serif;
+  font-size: clamp(28px, 3vw, 36px);
+  font-weight: 800;
+  letter-spacing: -1px;
+}
+
+.page > p,
+.app-content > main > p {
+  color: var(--muted);
+  line-height: 1.75;
+}
+
+.page > section {
+  margin-top: 28px;
+}
+
+/* ========================================
+   5. COLORFUL METRIC CARDS
+======================================== */
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px;
+  width: 100%;
+  margin: 30px 0;
+}
+
+.dashboard-card {
+  min-width: 0;
+  margin: 18px 0;
+  padding: 24px;
+  border: 1px solid var(--border);
+  border-radius: 15px;
+  background: #ffffff;
+  box-shadow: 0 6px 20px rgb(54 42 104 / 5%);
+}
+
+.dashboard-grid .dashboard-card {
+  position: relative;
+  overflow: hidden;
+  min-height: 140px;
+  margin: 0;
+  padding: 24px;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 8px 22px rgb(54 42 104 / 10%);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.dashboard-grid .dashboard-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 13px 28px rgb(54 42 104 / 15%);
+}
+
+/* Decorative circles on metric cards */
+
+.dashboard-grid .dashboard-card::after {
+  content: "";
+  position: absolute;
+  top: -37px;
+  right: -24px;
+  width: 112px;
+  height: 112px;
+  border: 20px solid rgb(255 255 255 / 16%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.dashboard-grid .dashboard-card::before {
+  content: "";
+  position: absolute;
+  right: 38px;
+  bottom: -50px;
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: rgb(255 255 255 / 9%);
+  pointer-events: none;
+}
+
+/* Purple */
+
+.dashboard-grid .dashboard-card:nth-child(1) {
+  background: linear-gradient(135deg, #7755e7, #a078f4);
+}
+
+/* Blue */
+
+.dashboard-grid .dashboard-card:nth-child(2) {
+  background: linear-gradient(135deg, #3189e9, #52bde9);
+}
+
+/* Orange */
+
+.dashboard-grid .dashboard-card:nth-child(3) {
+  background: linear-gradient(135deg, #ef8748, #ffc05c);
+}
+
+/* Teal */
+
+.dashboard-grid .dashboard-card:nth-child(4) {
+  background: linear-gradient(135deg, #10a58b, #51d4b0);
+}
+
+/* Pink */
+
+.dashboard-grid .dashboard-card:nth-child(5) {
+  background: linear-gradient(135deg, #df4e91, #fa91b8);
+}
+
+.dashboard-grid .dashboard-card p {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  color: rgb(255 255 255 / 95%);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.6;
+}
+
+.dashboard-grid .dashboard-card h2 {
+  position: relative;
+  z-index: 1;
+  margin: 15px 0 0;
+  color: #ffffff;
+  font-family: "Manrope", sans-serif;
+  font-size: 32px;
+  font-weight: 800;
+  letter-spacing: -0.7px;
+}
+
+/* Other cards */
+
+.dashboard-card h2 {
+  margin: 0 0 16px;
+  color: #352b63;
+  font-family: "Manrope", sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.dashboard-card h3 {
+  margin: 0 0 12px;
+  color: #37315e;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.dashboard-card p {
+  color: #77738f;
+  line-height: 1.7;
+}
+
+.dashboard-card p strong {
+  color: #423b6d;
+}
+
+/* ========================================
+   6. REVIEW STATUS SECTION
+======================================== */
+
+.page > .dashboard-card,
+.page > section.dashboard-card {
+  border: 1px solid #e5defb;
+  border-radius: 16px;
+  background: linear-gradient(120deg, #ffffff, #faf8ff);
+  box-shadow: 0 7px 22px rgb(67 50 135 / 6%);
+}
+
+.page > .dashboard-card h2,
+.page > section.dashboard-card h2 {
+  color: #3b2d72;
+}
+
+.page > .dashboard-card p,
+.page > section.dashboard-card p {
+  margin: 10px 0;
+}
+
+/* ========================================
+   7. FORMS
+======================================== */
+
+.brand-form {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.brand-form button {
+  align-self: flex-start;
+  min-width: 130px;
+  margin-top: 4px;
+}
+
+.brand-form .dashboard-card {
+  background: #ffffff;
+}
+
+/* ========================================
+   8. FINDINGS AND REPORTS
+======================================== */
+
+.finding-card {
+  margin: 15px 0;
+  padding: 20px;
+  border: 1px solid #ffdda8;
+  border-left: 5px solid #f0a13b;
+  border-radius: 12px;
+  background: linear-gradient(120deg, #fff5df, #ffffff);
+}
+
+.finding-card h3 {
+  margin-top: 0;
+  color: #664522;
+}
+
+.finding-card p {
+  line-height: 1.7;
+}
+
+.review-content {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  color: #57536f;
+  line-height: 1.8;
+}
+
+/* ========================================
+   9. BUTTON GROUPS
+======================================== */
+
+.button-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.button-group button:nth-child(2) {
+  background: linear-gradient(120deg, #ed8b48, #f4aa54);
+  box-shadow: 0 5px 12px rgb(237 139 72 / 20%);
+}
+
+/* ========================================
+   10. TABLES
+======================================== */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th {
+  background: #eee9ff;
+  color: #61538f;
+  font-size: 11px;
+  font-weight: 700;
+  text-align: left;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+th,
+td {
+  padding: 15px 14px;
+  border-bottom: 1px solid #eeeaf8;
+  text-align: left;
+}
+
+td {
+  color: #514d70;
+  background: #ffffff;
+}
+
+tbody tr:hover td {
+  background: #f8f6ff;
+}
+
+tr:last-child td {
+  border-bottom: none;
+}
+
+/* ========================================
+   11. ALERTS
+======================================== */
+
+[role="alert"] {
+  padding: 13px 16px;
+  border: 1px solid #f4c7d0;
+  border-radius: 10px;
+  background: #fff0f4;
+  color: #b32f4b;
+}
+
+/* ========================================
+   12. RESPONSIVE LAYOUT
+======================================== */
+
+@media (max-width: 1100px) {
+  .app-header {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .app-nav {
+    justify-content: flex-start;
+  }
+
+  .dashboard-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .app-header {
+    padding: 17px 18px;
+  }
+
+  .app-content {
+    padding: 25px 17px 40px;
+  }
+
+  .app-nav {
+    gap: 3px;
+  }
+
+  .app-nav a {
+    padding: 8px;
+    font-size: 12px;
+  }
+
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .dashboard-grid .dashboard-card {
+    min-height: 120px;
+    padding: 21px;
+  }
+
+  .dashboard-card {
+    padding: 18px;
+  }
+
+  .button-group {
+    flex-direction: column;
+  }
+
+  table {
+    display: block;
+    overflow-x: auto;
+  }
+}
