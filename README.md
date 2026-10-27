@@ -362,7 +362,7 @@ Install the following:
 ### 1. Clone the Repository
 
 ```bash
-git clone <YOUR_GITHUB_REPOSITORY_URL>
+git clone https://github.com/Sumit182004/BrandGuard-AI
 cd BrandGuardAI
 ```
 
